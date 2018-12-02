@@ -17,8 +17,13 @@ class CategoryController extends AbstractController
      */
     public function index()
     {
+
+        $categories = $this->getDoctrine()
+                           ->getRepository(Category::class)
+                           ->findAll();
+
         return $this->render('category/index.html.twig', [
-            'controller_name' => 'CategoryController',
+            'categories' => $categories
         ]);
     }
 
@@ -46,4 +51,47 @@ class CategoryController extends AbstractController
           ]);
 
     }
+
+    /**
+     * @Route("/category/edit/{id}", name="category_edit")
+     */
+
+      public function edit($id, Request $request)
+        {
+          $em = $this->getDoctrine()->getManager();
+          // récupération des données
+          $category = $em
+            ->getRepository(Category::class)
+            ->find($id);
+
+          $form = $this->createForm(CategoryType::class, $category);
+
+          $form->handleRequest($request);
+          if ($form->isSubmitted()) {
+            // modifie l'object category avec les données postées
+            $country = $form->getData();
+            $em->flush();
+            return $this->redirectToRoute('category');
+          }
+          return $this->render('category/edit.html.twig', [
+            'form' => $form->createView()
+          ]);
+        }
+
+        /**
+         * @Route("/category/delete{id}", name="category_delete")
+         */
+        public function delete($id)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $category = $this->getDoctrine()
+              ->getRepository(Category::class)
+              ->find($id);
+            $em->remove($category);
+            $em->flush();
+            return $this->redirectToRoute('category');
+        }
+
+
+
 }

@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
-<h1>Les questions</h1>
+<h1>Detail question</h1>
 <table class="table table-bordered table-striped">
   <thead>
     <td>
@@ -24,7 +22,7 @@
   </thead>
   <tbody>
 
-    {% for question in questions %}
+
 
       <tr>
         <td>{{ question.label }}</td>
@@ -40,7 +38,7 @@
 
       </tr>
 
-    {% endfor %}
+    
 
   </tbody>
 </table>
