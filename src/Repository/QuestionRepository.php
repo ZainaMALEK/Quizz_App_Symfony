@@ -19,17 +19,29 @@ class QuestionRepository extends ServiceEntityRepository
         parent::__construct($registry, Question::class);
     }
 
-    public function findQuestionsByDifficulty($difficulty)
+      public function findByFilters($category, $difficulty)
     {
-      $em = $this->getEntityManager();
-      $query = $em->createQuery(
-        'SELECT q
-          FROM App\Entity\question q
-          WHERE q.difficulty = :difficulty
-          '
-        )->setParameter('difficulty', $difficulty);
-      return $query->execute();
+        $qb = $this->createQueryBuilder('q');
+        if ($category) {
+          $qb
+            ->andWhere('q.category = :category')
+            ->setParameter('category', $category);
+        }
+        if ($difficulty) {
+          $qb
+            ->andWhere('q.difficulty = :difficulty')
+            ->setParameter('difficulty', $difficulty);
+        }
+        return $qb
+          ->orderBy('q.id', 'DESC')
+          ->getQuery()
+          ->getResult()
+        ;
     }
+
+
+
+  
 
     // /**
     //  * @return Question[] Returns an array of Question objects

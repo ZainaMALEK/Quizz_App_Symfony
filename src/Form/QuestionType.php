@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use App\Entity\Category;
 
 class QuestionType extends AbstractType
@@ -16,7 +17,13 @@ class QuestionType extends AbstractType
     {
         $builder
             ->add('label')
-            ->add('difficulty')
+            ->add('difficulty', ChoiceType::class, array(
+              'choices'=>array(
+                'Facile'=>1,
+                'Intermédiare'=>2,
+                'Difficile'=>3
+              )
+            ))
             ->add('category', EntityType::class, array(
               'class' => Category::class,
               'choice_label' => 'name'

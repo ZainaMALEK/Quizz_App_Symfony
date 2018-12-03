@@ -32,17 +32,17 @@ class AnswerController extends AbstractController
   /**
    * @Route("/answer/{id}", name="answer_detail")
    */
-  public function detail($id)
-  {
-
-    $question = $this->getDoctrine()
-      ->getRepository(Answer::class)
-      ->find($id);
-
-      return $this->render('answer/detail.html.twig', [
-          'answer' => $answer
-      ]);
-  }
+  // public function detail($id)
+  // {
+  //
+  //   $answer = $this->getDoctrine()
+  //     ->getRepository(Answer::class)
+  //     ->find($id);
+  //
+  //     return $this->render('answer/detail.html.twig', [
+  //         'answer' => $answer
+  //     ]);
+  // }
 
 
     /**

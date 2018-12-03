@@ -42,12 +42,21 @@
 
   </tbody>
 </table>
-
-<!-- Afficher les réponses -->
+<h5>Les réponses associés a cette question</h5>
 <ul>
-  <li>
+{% for answer in question.answers %}
 
-  </li>
+{% if answer.correct == 1 %}
+  <li>  {{answer.label}}(correcte) </li>
+  {% else %}
+  <li>  {{answer.label}} </li>    
+{% endif %}
+
+{% endfor %}
 </ul>
+<!-- Formulaire réponses -->
+<h5>Entrez une réponse à cette question</h5>
+{{form_start(form)}}
+{{form_end(form)}}
 
 {% endblock %}
