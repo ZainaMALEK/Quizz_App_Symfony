@@ -18,11 +18,6 @@ class AnswerType extends AbstractType
         $builder
             ->add('label')
             ->add('correct')
-            ->add('question')
-            ->add('category', EntityType::class, array(
-              'class' => Category::class,
-              'choice_label' => 'name'
-            ))
             ->add('submit', SubmitType::class)
         ;
     }

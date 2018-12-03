@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\QuestionType;
 use App\Entity\Category;
 use App\Entity\Question;
+use App\Entity\Answer;
 
 class QuestionController extends AbstractController
 {
@@ -42,8 +43,20 @@ class QuestionController extends AbstractController
           'question' => $question
       ]);
   }
+  /**
+   * @Route("/question/dif/{difficulty}", name="question_difficulty")
+   */
+  public function difficulty($difficulty)
+  {
 
+    $questions = $this->getDoctrine()
+      ->getRepository(Question::class)
+      ->findQuestionsByDifficulty($difficulty);
 
+      return $this->render('question/index.html.twig', [
+          'questions' => $questions
+      ]);
+  }
 
 
     /**
